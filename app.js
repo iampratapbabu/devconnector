@@ -3,6 +3,7 @@ const morgan = require('morgan');
 
 //routes
 const blogRouter = require("./routes/blogRoute");
+const userRouter = require("./routes/userRoute");
 
 const app=express();
 app.use(express.json());
@@ -23,10 +24,11 @@ app.use((req,res,next) =>{
 });
 
 app.get('/',(req,res)=>{
-  res.send("This is backend");
+  res.send("This is backend of DevConnector By:Tej Pratap");
 });
 
 //all route files
 app.use('/app/v1/blogs',blogRouter);
+app.use('/app/v1/users',userRouter);
 
 module.exports = app;
