@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const Profile = require("../models/profileModel");
 const bcrypt = require('bcrypt');
 const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
@@ -84,3 +85,20 @@ exports.getSingleUser = async(req,res) =>{
         });
     }
 };
+
+exports.deleteUser = async(req,res) =>{
+    try{
+        await User.findOneAndDelete(req.user.id);  //req.user protect middleware ke through aa rha hai
+        await Profile.findOneAndDelete({user:req.user.id});
+        res.status(200).json({
+            msg:"User deleted"
+        });
+        
+    }catch(err){
+        res.status(400).json({
+            status:"Fail",
+            message:err.message
+        });
+    }
+};
+

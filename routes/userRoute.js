@@ -17,9 +17,21 @@ router.route('/profile/me')
 
 router.route('/profile')
     .post(authController.protect,profileController.createProfile)
+    .get(profileController.getAllProfiles);
+
+router.route('/profile/user/:userid')
+    .get(profileController.getUserProfile);
+
+router.route('/profile/experience')
+    .put(authController.protect,profileController.profileExperience);
+
+router.route('/profile/education')
+    .put(authController.protect,profileController.profileEducation);
 
 
 router.route('/')
-.get(authController.protect,userController.getAllUsers);
+    .get(authController.protect,userController.getAllUsers)
+    .delete(authController.protect,userController.deleteUser)
+
 
 module.exports = router;
