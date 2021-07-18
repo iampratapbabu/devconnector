@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require('morgan');
 
 //routes
-const blogRouter = require("./routes/blogRoute");
+const postRouter = require("./routes/postRoute");
 const userRouter = require("./routes/userRoute");
 
 const app=express();
@@ -28,7 +28,7 @@ app.get('/',(req,res)=>{
 });
 
 //all route files
-app.use('/app/v1/blogs',blogRouter);
+app.use('/app/v1/posts',postRouter);
 app.use('/app/v1/users',userRouter);
 
 module.exports = app;

@@ -25,8 +25,14 @@ router.route('/profile/user/:userid')
 router.route('/profile/experience')
     .put(authController.protect,profileController.profileExperience);
 
+router.route('/profile/experience/:expid')
+    .delete(authController.protect,profileController.deleteExperience);
+
 router.route('/profile/education')
     .put(authController.protect,profileController.profileEducation);
+
+router.route('/profile/education/:eduid')
+    .delete(authController.protect,profileController.deleteEducation);
 
 
 router.route('/')

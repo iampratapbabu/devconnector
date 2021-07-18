@@ -117,10 +117,11 @@ exports.getUserProfile = async(req,res) =>{
 
 exports.profileEducation = async(req,res) =>{
     try{
+        const {school,degree,fieldofstudy,from,to,current,description} = req.body;
+        const newEdu = {school,degree,fieldofstudy,from,to,current,description};
         const profile = await Profile.findOne({user:req.user.id});
-        if(!profile){
-            return res.status(400).json({msg:"There is NO Profile for this user id"})
-        }
+        profile.education.unshift(newEdu);
+        await profile.save();
         res.status(200).json({
             profile
         });
@@ -130,6 +131,25 @@ exports.profileEducation = async(req,res) =>{
             status:"SERVER ERROR",
             message:err.message
         });
+    }
+};
+
+exports.deleteEducation = async(req,res) =>{
+    try{
+        const profile = await Profile.findOne({user:req.user.id});
+        //get the index of experince obj to be deleted
+        const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.expid);
+        profile.education.splice(removeIndex,1);
+        await profile.save();
+        res.status(200).json({
+            profile,
+            msg:"Education deleted"
+        });
+    }catch(err){
+        res.status(500).json({
+            status:"SERVER ERROR",
+            message:err.message
+        })
     }
 };
 
@@ -152,5 +172,24 @@ exports.profileExperience = async(req,res) =>{
             status:"SERVER ERROR",
             message:err.message
         });
+    }
+};
+
+exports.deleteExperience = async(req,res) =>{
+    try{
+        const profile = await Profile.findOne({user:req.user.id});
+        //get the index of experince obj to be deleted
+        const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.expid);
+        profile.experience.splice(removeIndex,1);
+        await profile.save();
+        res.status(200).json({
+            profile,
+            msg:"Experience deleted"
+        });
+    }catch(err){
+        res.status(500).json({
+            status:"SERVER ERROR",
+            message:err.message
+        })
     }
 };
