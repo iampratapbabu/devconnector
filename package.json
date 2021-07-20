@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server \" \"npm run client\""
   },
   "author": "Tej Pratap",
   "license": "ISC",
@@ -24,5 +26,8 @@
     "slugify": "^1.5.3",
     "uuid": "^8.3.2",
     "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
   }
 }
