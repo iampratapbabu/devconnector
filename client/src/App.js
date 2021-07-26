@@ -1,15 +1,12 @@
-import React,{Fragment} from 'react';
+import React,{Fragment,useEffect} from 'react';
 import { Route,Switch } from "react-router-dom";
-
 import './App.css';
 
 //Redux files setup
 import {Provider} from 'react-redux';
 import store from './store';
-
-
-//components files
-import About from './components/About';
+import { loadUser } from './actions/authActions';
+import setAuthToken from './utils/setAuthToken';
 
 //layout files
 import Navbar from './components/Navbar';
@@ -17,9 +14,22 @@ import Landing from './components/Landing';
 import Register from './components/Register';
 import Login from './components/Login';
 import Alerts from './layout/Alerts';
+import Dashboard from './components/dashboard/Dashboard';
 
+
+if(localStorage.token){
+  setAuthToken(localStorage.token);
+}
 
 const App = () =>{
+
+  //user loading
+  useEffect(()=>{
+    store.dispatch(loadUser());
+  },[]);
+
+  //authAction se function run krne ke liye dispatch use krke direct fuction run kr skte hain
+
   return (
     <Provider store={store}>
     <Fragment> 
@@ -31,6 +41,7 @@ const App = () =>{
         <Switch>
           <Route exact path='/register'component={Register}/>
           <Route exact path='/login'component={Login}/>
+          <Route exact path='/dashboard'component={Dashboard}/>
           
         </Switch>
         </section>

@@ -18,8 +18,8 @@ exports.protect =  async (req,res,next) =>{
         next();
 
     }catch(err){
-        res.status(400).json({
-            status:"Fail00",
+        res.status(500).json({
+            status:"SERVER ERROR",
             message:err.message
         });
     }
@@ -56,7 +56,7 @@ exports.login = async (req,res) =>{
        });
     }catch(err)
     {
-        res.status(400).json({
+        res.status(500).json({
             status:"Fail",
             message:err.message
         });
