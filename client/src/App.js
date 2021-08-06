@@ -15,6 +15,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Alerts from './layout/Alerts';
 import Dashboard from './components/dashboard/Dashboard';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 
 if(localStorage.token){
@@ -41,7 +42,7 @@ const App = () =>{
         <Switch>
           <Route exact path='/register'component={Register}/>
           <Route exact path='/login'component={Login}/>
-          <Route exact path='/dashboard'component={Dashboard}/>
+          <PrivateRoute exact path='/dashboard'component={Dashboard}/>
           
         </Switch>
         </section>
