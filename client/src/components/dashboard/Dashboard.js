@@ -1,14 +1,15 @@
 import React,{Fragment, useEffect} from 'react';
-import{Link} from 'react-router-dom';
+import{Link,withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profileActions';
+import DashboardActions from './DashboardActions';
 
 const Dashboard = ({getCurrentProfile,auth:{user,isAuthenticated},profile:{profile,loading}}) => {
     useEffect(()=>{
         getCurrentProfile();
     },[]);
-    console.log(profile);
+    console.log(profile); //profile ko destructure krke profile and loading bahar nikal liye hain profilereducer se
     console.log(user);
     if(loading && profile === null){
         return <h1>Loading...</h1>;
@@ -24,7 +25,7 @@ const Dashboard = ({getCurrentProfile,auth:{user,isAuthenticated},profile:{profi
             {
                 profile !== null ? (
                     <Fragment>
-                        has
+                        <DashboardActions/>
                     </Fragment>
                 ):(
                     <Fragment>
